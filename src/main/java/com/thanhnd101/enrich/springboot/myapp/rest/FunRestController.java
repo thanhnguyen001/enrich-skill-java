@@ -1,18 +1,33 @@
 package com.thanhnd101.enrich.springboot.myapp.rest;
 
-import com.thanhnd101.enrich.springboot.myapp.dto.User;
+import com.thanhnd101.enrich.springboot.mapper.UserMapper;
+import com.thanhnd101.enrich.springboot.model.User;
+import java.util.List;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * @author NguyenThanh
+ * user mapper.
+ *
+ * @author thanhnd101
  */
 @RestController
+@RequiredArgsConstructor
+@RequestMapping("/api")
 public class FunRestController {
 
-  @GetMapping("/")
-  public String sayHello() {
+  private final UserMapper userMapper;
 
-    return "Hello World";
+  /**
+   * get all users.
+   * @return list users.
+   */
+  @GetMapping("/users")
+  public int getUsers() {
+    List<User> listUser = userMapper.findAll();
+
+    return listUser.size();
   }
 }

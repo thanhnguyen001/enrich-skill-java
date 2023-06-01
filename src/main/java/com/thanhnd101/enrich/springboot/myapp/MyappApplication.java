@@ -1,9 +1,11 @@
 package com.thanhnd101.enrich.springboot.myapp;
 
-import com.thanhnd101.enrich.springboot.myapp.dto.User;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+/**
+ * main app.
+ */
 @SpringBootApplication
 public class MyappApplication {
 
