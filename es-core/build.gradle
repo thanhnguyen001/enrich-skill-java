@@ -1,0 +1,42 @@
+buildscript {
+    dependencies {
+        classpath 'org.flywaydb:flyway-core:9.8.1'
+        classpath 'org.flywaydb:flyway-mysql:9.17.0'
+    }
+}
+
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.1.0'
+    id 'io.spring.dependency-management' version '1.1.0'
+    id 'org.flywaydb.flyway' version '9.8.1'
+}
+
+group = 'com.thanhnd101.enrich.core'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '17'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.2'
+    implementation 'com.mysql:mysql-connector-j:8.0.33'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+flyway {
+    url = "jdbc:mysql://localhost:3306/es-java?createDatabaseIfNotExist=true"
+    user = 'admin'
+    password = 'admin'
+    schemas = ['es-java']
+    cleanDisabled = false
+}

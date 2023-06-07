@@ -1,1 +1,5 @@
 rootProject.name = 'myapp'
+include 'untitled'
+include 'es-core'
+include 'es-api'
+
