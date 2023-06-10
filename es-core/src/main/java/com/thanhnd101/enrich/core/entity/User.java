@@ -1,6 +1,6 @@
 package com.thanhnd101.enrich.core.entity;
 
-import java.sql.Timestamp;
+import java.time.OffsetDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 /**
- * Some javadoc.
+ * User.
  */
 @Data
 @Builder
@@ -25,11 +25,11 @@ public class User {
   private String birthday;
   private String email;
   private String address;
-  private Timestamp createdAat;
+  private OffsetDateTime createdAat;
   private String createdBy;
-  private Timestamp updatedAt;
+  private OffsetDateTime updatedAt;
   private String updatedBy;
-  private Timestamp deletedAt;
+  private OffsetDateTime deletedAt;
   private String deletedBy;
 }
 

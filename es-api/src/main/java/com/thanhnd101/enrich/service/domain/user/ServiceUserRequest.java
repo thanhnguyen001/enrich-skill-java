@@ -1,4 +1,4 @@
-package com.thanhnd101.enrich.springboot.myapp.model;
+package com.thanhnd101.enrich.service.domain.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,21 +8,16 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 /**
- * Some javadoc.
+ * user request.
  */
-
 @Data
 @Builder
 @ToString
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
+public class ServiceUserRequest {
 
+  private String name;
   private String id;
-  private String username;
-  private String password;
-  private String birthday;
-  private String email;
-  private String address;
 }

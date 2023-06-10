@@ -1,5 +1,4 @@
-rootProject.name = 'myapp'
-include 'untitled'
-include 'es-core'
+rootProject.name = 'es-api'
 include 'es-api'
+include 'es-core'
 
