@@ -1,4 +1,4 @@
-package com.thanhnd101.enrich.service.domain.user;
+package com.thanhnd101.enrich.api.domain.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

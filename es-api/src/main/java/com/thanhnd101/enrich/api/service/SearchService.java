@@ -1,4 +1,4 @@
-package com.thanhnd101.enrich.service.service;
+package com.thanhnd101.enrich.api.service;
 
 import java.util.List;
 

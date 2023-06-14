@@ -1,4 +1,4 @@
-package com.thanhnd101.enrich.service.domain.user;
+package com.thanhnd101.enrich.api.domain.user;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.thanhnd101.enrich.core.entity.User;

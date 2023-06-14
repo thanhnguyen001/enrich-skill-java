@@ -1,6 +1,6 @@
-package com.thanhnd101.enrich.service.domain.user;
+package com.thanhnd101.enrich.api.domain.user;
 
-import com.thanhnd101.enrich.service.service.SearchService;
+import com.thanhnd101.enrich.api.service.SearchService;
 import com.thanhnd101.enrich.core.entity.User;
 import com.thanhnd101.enrich.core.repository.UserRepository;
 import java.util.List;
