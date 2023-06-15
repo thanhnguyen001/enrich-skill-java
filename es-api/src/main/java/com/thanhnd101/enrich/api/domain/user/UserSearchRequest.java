@@ -16,7 +16,7 @@ import lombok.ToString;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-public class ServiceUserRequest {
+public class UserSearchRequest {
 
   private String name;
   private String id;

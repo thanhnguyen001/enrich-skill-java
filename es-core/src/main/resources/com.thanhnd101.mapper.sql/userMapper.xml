@@ -17,6 +17,10 @@
 <mapper namespace="com.thanhnd101.enrich.core.repository.UserRepository">
   <select id="findAll" resultType="com.thanhnd101.enrich.core.entity.User">
     SELECT * FROM `es-java`.`user`
+  </select>
+
+  <select id="find" resultType="com.thanhnd101.enrich.core.entity.User">
+    SELECT * FROM `es-java`.`user`
     WHERE
     <if test="id != null">
       id = #{id}
@@ -31,13 +35,9 @@
       address = #{address}
     </if>
   </select>
-
-  <select id="find" resultType="com.thanhnd101.enrich.core.entity.User">
-
-  </select>
   <insert
     flushCache="true"
-    id="createUser"
+    id="create"
     parameterType="com.thanhnd101.enrich.core.entity.User"
     timeout="20"
     keyProperty="id"

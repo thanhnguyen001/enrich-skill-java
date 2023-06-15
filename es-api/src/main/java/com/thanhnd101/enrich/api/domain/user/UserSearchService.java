@@ -12,14 +12,14 @@ import lombok.RequiredArgsConstructor;
  */
 @RequiredArgsConstructor
 @org.springframework.stereotype.Service
-public class ServiceUserService implements SearchService<ServiceUserRequest, ServiceUserResponse> {
+public class UserSearchService implements SearchService<UserSearchRequest, UserSearchResponse> {
 
 //  @Autowired
   private final UserRepository userRepository;
 
   @Override
-  public List<ServiceUserResponse> execute(ServiceUserRequest serviceUserRequest) {
+  public List<UserSearchResponse> execute(UserSearchRequest userSearchRequest) {
     List<User> listUser = userRepository.findAll();
-    return listUser.stream().map(ServiceUserResponse::of).toList();
+    return listUser.stream().map(UserSearchResponse::of).toList();
   }
 }

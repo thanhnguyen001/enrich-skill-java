@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/users")
-public class ServiceUserController {
+public class UserSearchController {
 
-  private final ServiceUserService serviceUserService;
+  private final UserSearchService userSearchService;
 
   @GetMapping
-  public ResponseEntity<List<ServiceUserResponse>> getUsers() {
-    return ResponseEntity.ok(serviceUserService.execute(ServiceUserRequest.builder().build()));
+  public ResponseEntity<List<UserSearchResponse>> getUsers() {
+    return ResponseEntity.ok(userSearchService.execute(UserSearchRequest.builder().build()));
   }
 
 }
