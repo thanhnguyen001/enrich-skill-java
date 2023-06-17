@@ -1,3 +1,16 @@
+<!--<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"-->
+<!--  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">-->
+
+<!--<mapper namespace="com.thanhnd101.enrich.core.repository.UserRepository">-->
+<!--  <select id="findAll" resultType="com.thanhnd101.enrich.core.entity.User">-->
+<!--    SELECT * FROM `es-java`.`user`-->
+<!--  </select>-->
+<!--  <insert id="createUser">-->
+<!--    insert into `es-java`.`user` (id, username, password, email, address, birthday)-->
+<!--    values('ABCD', 'Tom B. Erichsen', 'atetwerwfer', 'adasda@gmail.com', '4006', '2020-12-21');-->
+<!--  </insert>-->
+<!--</mapper>-->
+
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
@@ -5,8 +18,63 @@
   <select id="findAll" resultType="com.thanhnd101.enrich.core.entity.User">
     SELECT * FROM `es-java`.`user`
   </select>
-  <insert id="createUser">
-    insert into `es-java`.`user` (id, username, password, email, address, birthday)
-    values('ABCD', 'Tom B. Erichsen', 'atetwerwfer', 'adasda@gmail.com', '4006', '2020-12-21');
+
+  <select id="find" resultType="com.thanhnd101.enrich.core.entity.User">
+    SELECT * FROM `es-java`.`user`
+    WHERE
+    <if test="id != null">
+      id = #{id}
+    </if>
+    <if test="username != null">
+      username = #{username}
+    </if>
+    <if test="email != null">
+      email = #{email}
+    </if>
+    <if test="address != null">
+      address = #{address}
+    </if>
+  </select>
+  <insert
+    flushCache="true"
+    id="create"
+    parameterType="com.thanhnd101.enrich.core.entity.User"
+    timeout="20"
+    keyProperty="id"
+    useGeneratedKeys="true">
+    <![CDATA[
+    INSERT INTO `es-java`.`user` (id, username, password, email, address, birthday, created_at, created_by, updated_at, updated_by) VALUES (
+      #{id}
+      ,#{username}
+      ,#{password}
+      ,#{email}
+      ,#{address}
+      ,#{birthday}
+      ,#{createdAt}
+      ,#{createdBy}
+      ,#{updatedAt}
+      ,#{updatedBy}
+    )
+    ]]>
   </insert>
+
+  <update id="update" parameterType="com.thanhnd101.enrich.core.entity.User">
+    UPDATE `es-java`.`user`
+    <set>
+      <if test="username != null">username=#{username},</if>
+      <if test="password != null">password=#{password},</if>
+      <if test="email != null">email=#{email},</if>
+      <if test="address != null">address=#{address},</if>
+      <if test="birthday != null">address=#{birthday},</if>
+    </set>
+    WHERE id = #{id}
+  </update>
+
+  <delete id="delete" parameterType="com.thanhnd101.enrich.core.entity.User">
+    <![CDATA[
+      DELETE FROM `es-java`.`user`
+      WHERE id = #{id}
+    ]]>
+  </delete>
 </mapper>
+

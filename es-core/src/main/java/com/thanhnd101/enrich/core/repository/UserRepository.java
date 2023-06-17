@@ -11,4 +11,12 @@ import org.apache.ibatis.annotations.Mapper;
 public interface UserRepository {
 
   List<User> findAll();
+
+  List<User> find(User user);
+
+  Long create(User user);
+
+  Long update(User user);
+
+  Long delete(String id);
 }
