@@ -43,7 +43,7 @@
     keyProperty="id"
     useGeneratedKeys="true">
     <![CDATA[
-    INSERT INTO `es-java`.`user` (id, username, password, email, address, birthday, created_at, created_by, updated_at, updated_by, deleted_at, deleted_by) VALUES (
+    INSERT INTO `es-java`.`user` (id, username, password, email, address, birthday, created_at, created_by, updated_at, updated_by) VALUES (
       #{id}
       ,#{username}
       ,#{password}
@@ -54,14 +54,27 @@
       ,#{createdBy}
       ,#{updatedAt}
       ,#{updatedBy}
-      ,#{deletedAt}
-      ,#{deletedBy}
     )
     ]]>
   </insert>
-  <insert id="createUser">
-    insert into `es-java`.`user` (id, username, password, email, address, birthday)
-    values('ABCD', 'Tom B. Erichsen', 'atetwerwfer', 'adasda@gmail.com', '4006', '2020-12-21');
-  </insert>
+
+  <update id="update" parameterType="com.thanhnd101.enrich.core.entity.User">
+    UPDATE `es-java`.`user`
+    <set>
+      <if test="username != null">username=#{username},</if>
+      <if test="password != null">password=#{password},</if>
+      <if test="email != null">email=#{email},</if>
+      <if test="address != null">address=#{address},</if>
+      <if test="birthday != null">address=#{birthday},</if>
+    </set>
+    WHERE id = #{id}
+  </update>
+
+  <delete id="delete" parameterType="com.thanhnd101.enrich.core.entity.User">
+    <![CDATA[
+      DELETE FROM `es-java`.`user`
+      WHERE id = #{id}
+    ]]>
+  </delete>
 </mapper>
 

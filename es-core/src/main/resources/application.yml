@@ -20,3 +20,6 @@ mybatis:
     lazyLoadingEnabled: true
     lazyLoadTriggerMethods: ""
     mapUnderscoreToCamelCase: true
+logging:
+  level:
+    root: DEBUG

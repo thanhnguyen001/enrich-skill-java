@@ -1,4 +1,4 @@
-package com.thanhnd101.enrich.api.domain.user.create;
+package com.thanhnd101.enrich.api.domain.user.update;
 
 import com.thanhnd101.enrich.core.entity.User;
 import java.time.LocalDate;
@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 /**
- * user post.
+ * User update DTO.
  */
 @Data
 @Builder
@@ -19,20 +19,26 @@ import lombok.ToString;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserCreateDto {
+public class UserUpdateRequest {
 
+  private String id;
   private String username;
   private String password;
   private String email;
   private String address;
+  private LocalDate birthday;
 
   public User convertToUser() {
-    String id = this.username;
-    OffsetDateTime createdAt = OffsetDateTime.now();
-    OffsetDateTime updatedAt = OffsetDateTime.now();
-
-    User user = User.builder().id(id).username(this.username).email(this.email).password(this.password)
-        .address(this.address).birthday(LocalDate.now()).createdBy("system").createdAt(createdAt).updatedBy("system").updatedAt(updatedAt).build();
+    User user = User.builder()
+        .id(this.id)
+        .username(this.username)
+        .email(this.email)
+        .password(this.password)
+        .address(this.address)
+        .birthday(this.birthday)
+        .createdBy("system")
+        .updatedBy("system")
+        .build();
 
     return user;
   }

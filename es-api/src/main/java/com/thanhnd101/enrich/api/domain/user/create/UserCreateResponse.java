@@ -2,6 +2,7 @@ package com.thanhnd101.enrich.api.domain.user.create;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.thanhnd101.enrich.core.entity.User;
+import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,7 +22,7 @@ public class UserCreateResponse {
   private String id;
   private String username;
   private String password;
-  private String birthday;
+  private LocalDate birthday;
   private String email;
   private String address;
 

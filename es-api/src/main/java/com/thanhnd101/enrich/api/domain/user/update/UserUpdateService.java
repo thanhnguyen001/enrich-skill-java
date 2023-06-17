@@ -1,4 +1,4 @@
-package com.thanhnd101.enrich.api.domain.user.create;
+package com.thanhnd101.enrich.api.domain.user.update;
 
 import com.thanhnd101.enrich.api.service.CreateService;
 import com.thanhnd101.enrich.core.entity.User;
@@ -10,15 +10,16 @@ import lombok.RequiredArgsConstructor;
  */
 @RequiredArgsConstructor
 @org.springframework.stereotype.Service
-public class UserCreateService implements CreateService<UserCreateDto, UserCreateResponse> {
+public class UserUpdateService implements CreateService<UserUpdateRequest, UserUpdateResponse> {
 
   private final UserRepository userRepository;
 
   @Override
-  public UserCreateResponse execute(UserCreateDto userCreateDto) {
-    User user = userCreateDto.convertToUser();
-    UserCreateResponse userResponse = UserCreateResponse.of(user);
-    Long id = userRepository.create(user);
+  public UserUpdateResponse execute(UserUpdateRequest userUpdateRequest) {
+    User user = userUpdateRequest.convertToUser();
+    UserUpdateResponse userResponse = UserUpdateResponse.of(user);
+    Long id = userRepository.update(user);
     return userResponse;
   }
 }
+

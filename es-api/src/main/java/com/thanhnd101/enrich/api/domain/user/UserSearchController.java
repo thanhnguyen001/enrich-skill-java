@@ -17,9 +17,8 @@ public class UserSearchController {
 
   private final UserSearchService userSearchService;
 
-  @GetMapping
+  @GetMapping()
   public ResponseEntity<List<UserSearchResponse>> getUsers() {
     return ResponseEntity.ok(userSearchService.execute(UserSearchRequest.builder().build()));
   }
-
 }

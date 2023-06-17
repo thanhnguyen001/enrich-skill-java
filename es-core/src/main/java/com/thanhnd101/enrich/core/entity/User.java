@@ -1,5 +1,7 @@
 package com.thanhnd101.enrich.core.entity;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,10 +24,10 @@ public class User {
   private String id;
   private String username;
   private String password;
-  private String birthday;
+  private LocalDate birthday;
   private String email;
   private String address;
-  private OffsetDateTime createdAat;
+  private OffsetDateTime createdAt;
   private String createdBy;
   private OffsetDateTime updatedAt;
   private String updatedBy;

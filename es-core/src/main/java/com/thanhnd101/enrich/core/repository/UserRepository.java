@@ -12,5 +12,11 @@ public interface UserRepository {
 
   List<User> findAll();
 
-  User create(User user);
+  List<User> find(User user);
+
+  Long create(User user);
+
+  Long update(User user);
+
+  Long delete(String id);
 }
