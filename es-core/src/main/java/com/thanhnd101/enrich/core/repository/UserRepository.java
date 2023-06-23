@@ -10,10 +10,9 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface UserRepository {
 
-  List<User> findAll();
+  List<User> findAll(User user);
 
-  List<User> find(User user);
-
+  int count();
   Long create(User user);
 
   Long update(User user);

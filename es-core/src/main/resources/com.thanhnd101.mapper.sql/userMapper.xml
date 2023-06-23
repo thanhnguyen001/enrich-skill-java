@@ -1,40 +1,23 @@
-<!--<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"-->
-<!--  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">-->
-
-<!--<mapper namespace="com.thanhnd101.enrich.core.repository.UserRepository">-->
-<!--  <select id="findAll" resultType="com.thanhnd101.enrich.core.entity.User">-->
-<!--    SELECT * FROM `es-java`.`user`-->
-<!--  </select>-->
-<!--  <insert id="createUser">-->
-<!--    insert into `es-java`.`user` (id, username, password, email, address, birthday)-->
-<!--    values('ABCD', 'Tom B. Erichsen', 'atetwerwfer', 'adasda@gmail.com', '4006', '2020-12-21');-->
-<!--  </insert>-->
-<!--</mapper>-->
-
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.thanhnd101.enrich.core.repository.UserRepository">
-  <select id="findAll" resultType="com.thanhnd101.enrich.core.entity.User">
-    SELECT * FROM `es-java`.`user`
+  <select id="count" resultType="int">
+    SELECT COUNT(id) FROM `es-java`.`user`
   </select>
 
-  <select id="find" resultType="com.thanhnd101.enrich.core.entity.User">
+  <select id="findAll" resultType="com.thanhnd101.enrich.core.entity.User">
     SELECT * FROM `es-java`.`user`
-    WHERE
-    <if test="id != null">
-      id = #{id}
-    </if>
-    <if test="username != null">
-      username = #{username}
-    </if>
-    <if test="email != null">
-      email = #{email}
-    </if>
-    <if test="address != null">
-      address = #{address}
-    </if>
+    <where>
+      <if test="id != null">id=#{id}</if>
+      <if test="username != null">AND username like #{username}</if>
+      <if test="email != null">AND email like #{email}</if>
+      <if test="address != null">AND address like #{address}</if>
+    </where>
+    ORDER BY id
+    LIMIT #{pageNumber}, #{pageSize}
   </select>
+
   <insert
     flushCache="true"
     id="create"
