@@ -1,6 +1,6 @@
-package com.thanhnd101.enrich.service.domain.user;
+package com.thanhnd101.enrich.api.domain.user;
 
-import com.thanhnd101.enrich.service.service.SearchService;
+import com.thanhnd101.enrich.api.service.SearchService;
 import com.thanhnd101.enrich.core.entity.User;
 import com.thanhnd101.enrich.core.repository.UserRepository;
 import java.util.List;
@@ -12,14 +12,14 @@ import lombok.RequiredArgsConstructor;
  */
 @RequiredArgsConstructor
 @org.springframework.stereotype.Service
-public class ServiceUserService implements SearchService<ServiceUserRequest, ServiceUserResponse> {
+public class UserSearchService implements SearchService<UserSearchRequest, UserSearchResponse> {
 
 //  @Autowired
   private final UserRepository userRepository;
 
   @Override
-  public List<ServiceUserResponse> execute(ServiceUserRequest serviceUserRequest) {
+  public List<UserSearchResponse> execute(UserSearchRequest userSearchRequest) {
     List<User> listUser = userRepository.findAll();
-    return listUser.stream().map(ServiceUserResponse::of).toList();
+    return listUser.stream().map(UserSearchResponse::of).toList();
   }
 }
