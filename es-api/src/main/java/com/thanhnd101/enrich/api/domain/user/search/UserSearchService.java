@@ -23,7 +23,7 @@ public class UserSearchService implements
   public UserSearchPageResponse execute(UserSearchRequest userSearchRequest) {
     List<User> listUser = userRepository.findAll(userSearchRequest.convertToUser());
     List<UserSearchResponse> listUserRes = listUser.stream().map(UserSearchResponse::of).toList();
-    int count = userRepository.count();
+    int count = userRepository.count(userSearchRequest.convertToUser());
     int totalPage = (int)Math.ceil(count / userSearchRequest.getPageSize());
     return UserSearchPageResponse.of(listUserRes, userSearchRequest.getCurrentPage(),
         userSearchRequest.getPageSize(), totalPage);

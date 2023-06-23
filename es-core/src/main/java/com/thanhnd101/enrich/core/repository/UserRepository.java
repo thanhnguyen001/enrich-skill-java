@@ -12,7 +12,7 @@ public interface UserRepository {
 
   List<User> findAll(User user);
 
-  int count();
+  int count(User user);
   Long create(User user);
 
   Long update(User user);

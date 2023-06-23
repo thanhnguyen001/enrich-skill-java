@@ -21,6 +21,7 @@ public class UserSearchPageResponse {
   private int totalPage;
 
   public static UserSearchPageResponse of(List<UserSearchResponse> list, int currentPageRes, int pageSizeRes, int totalPage) {
+    totalPage = totalPage <= 0 ? 1 : totalPage;
     return UserSearchPageResponse.builder()
         .listUser(list)
         .currentPage(currentPageRes)

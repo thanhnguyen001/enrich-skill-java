@@ -4,6 +4,14 @@
 <mapper namespace="com.thanhnd101.enrich.core.repository.UserRepository">
   <select id="count" resultType="int">
     SELECT COUNT(id) FROM `es-java`.`user`
+    <where>
+      <if test="id != null">id=#{id}</if>
+      <if test="username != null">AND username like #{username}</if>
+      <if test="email != null">AND email like #{email}</if>
+      <if test="address != null">AND address like #{address}</if>
+    </where>
+    ORDER BY id
+    LIMIT #{pageNumber}, #{pageSize}
   </select>
 
   <select id="findAll" resultType="com.thanhnd101.enrich.core.entity.User">
