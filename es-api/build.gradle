@@ -15,6 +15,7 @@ repositories {
 dependencies {
     implementation project(":es-core")
 
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.2'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.jetbrains:annotations:24.0.0'
 

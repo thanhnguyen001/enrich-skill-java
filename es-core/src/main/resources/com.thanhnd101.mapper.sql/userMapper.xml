@@ -10,8 +10,6 @@
       <if test="email != null">AND email like #{email}</if>
       <if test="address != null">AND address like #{address}</if>
     </where>
-    ORDER BY id
-    LIMIT #{pageNumber}, #{pageSize}
   </select>
 
   <select id="findAll" resultType="com.thanhnd101.enrich.core.entity.User">
@@ -22,8 +20,6 @@
       <if test="email != null">AND email like #{email}</if>
       <if test="address != null">AND address like #{address}</if>
     </where>
-    ORDER BY id
-    LIMIT #{pageNumber}, #{pageSize}
   </select>
 
   <insert
@@ -57,15 +53,20 @@
       <if test="email != null">email=#{email},</if>
       <if test="address != null">address=#{address},</if>
       <if test="birthday != null">address=#{birthday},</if>
+      <if test="updatedAt != null">updated_at=#{updatedAt},</if>
+      <if test="updatedBy != null">updated_by=#{updatedBy},</if>
     </set>
     WHERE id = #{id}
   </update>
 
-  <delete id="delete" parameterType="com.thanhnd101.enrich.core.entity.User">
-    <![CDATA[
-      DELETE FROM `es-java`.`user`
-      WHERE id = #{id}
-    ]]>
+  <delete id="delete" parameterType="String">
+    DELETE FROM `es-java`.`user`
+    <where>
+      <foreach item="item" index="index" collection="ids"
+        open="id in (" separator="," close=")" nullable="true">
+        #{item}
+      </foreach>
+    </where>
   </delete>
 </mapper>
 

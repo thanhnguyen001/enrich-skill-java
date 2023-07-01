@@ -1,9 +1,11 @@
 package com.thanhnd101.enrich.api.domain.user.delete;
 
+import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,8 +19,8 @@ public class UserDeleteController {
 
   private final UserDeleteService userDeleteService;
 
-  @DeleteMapping("/{id}")
-  public ResponseEntity<UserDeleteResponse> delete(@PathVariable String id) {
-    return ResponseEntity.ok(userDeleteService.execute(id));
+  @DeleteMapping
+  public ResponseEntity<UserDeleteResponse> delete(@RequestBody UserDeleteRequest userDeleteRequest) {
+    return ResponseEntity.ok(userDeleteService.execute(userDeleteRequest));
   }
 }

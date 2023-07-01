@@ -28,13 +28,6 @@ public class UserSearchController {
       @RequestParam(defaultValue = "1") int pageNumber
   ) {
 
-    System.out.println("=================================================================================================================================");
-    System.out.println(id);
-    System.out.println(username);
-    System.out.println(email);
-    System.out.println(address);
-    System.out.println("=================================================================================================================================");
-
     UserSearchRequest userSearchRequest = new UserSearchRequest();
     // Set null to run condition <where> mybatis SQL in xml file
     userSearchRequest.setId(null);

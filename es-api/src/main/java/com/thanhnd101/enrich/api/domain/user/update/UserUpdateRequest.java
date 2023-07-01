@@ -36,8 +36,8 @@ public class UserUpdateRequest {
         .password(this.password)
         .address(this.address)
         .birthday(this.birthday)
-        .createdBy("system")
         .updatedBy("system")
+        .updatedAt(OffsetDateTime.now())
         .build();
 
     return user;
