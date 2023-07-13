@@ -19,7 +19,7 @@ import lombok.ToString;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserCreateDto {
+public class UserCreateRequest {
 
   private String username;
   private String password;

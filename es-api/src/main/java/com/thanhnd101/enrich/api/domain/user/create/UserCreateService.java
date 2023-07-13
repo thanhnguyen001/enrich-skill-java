@@ -10,13 +10,13 @@ import lombok.RequiredArgsConstructor;
  */
 @RequiredArgsConstructor
 @org.springframework.stereotype.Service
-public class UserCreateService implements CreateService<UserCreateDto, UserCreateResponse> {
+public class UserCreateService implements CreateService<UserCreateRequest, UserCreateResponse> {
 
   private final UserRepository userRepository;
 
   @Override
-  public UserCreateResponse execute(UserCreateDto userCreateDto) {
-    User user = userCreateDto.convertToUser();
+  public UserCreateResponse execute(UserCreateRequest userCreateRequest) {
+    User user = userCreateRequest.convertToUser();
     UserCreateResponse userResponse = UserCreateResponse.of(user);
     Long id = userRepository.create(user);
     return userResponse;

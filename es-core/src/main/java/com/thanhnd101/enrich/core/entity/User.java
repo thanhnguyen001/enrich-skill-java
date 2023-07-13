@@ -33,5 +33,7 @@ public class User {
   private String updatedBy;
   private OffsetDateTime deletedAt;
   private String deletedBy;
+  private int pageSize;
+  private int pageNumber;
 }
 

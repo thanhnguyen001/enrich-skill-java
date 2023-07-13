@@ -9,13 +9,13 @@ import lombok.RequiredArgsConstructor;
  */
 @RequiredArgsConstructor
 @org.springframework.stereotype.Service
-public class UserDeleteService implements CreateService<String, UserDeleteResponse> {
+public class UserDeleteService implements CreateService<UserDeleteRequest, UserDeleteResponse> {
 
   private final UserRepository userRepository;
 
   @Override
-  public UserDeleteResponse execute(String id) {
-    Long i = userRepository.delete(id);
+  public UserDeleteResponse execute(UserDeleteRequest userDeleteRequest) {
+    Long i = userRepository.delete(userDeleteRequest.getIds());
     Boolean ok = false;
     if (i > 0) {
       ok = true;

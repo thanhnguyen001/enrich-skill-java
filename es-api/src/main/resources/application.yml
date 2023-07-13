@@ -10,6 +10,8 @@ mybatis:
   #    annotationClass: org.springframework.boot.mybatis.autoconfigure.Mapper
   #    configLocation: "mybatis-configuration.xml"
   mapper-locations: "classpath:com.thanhnd101.mapper.sql/*.xml"
+  configuration:
+    map-underscore-to-camel-case: true
   type-aliases-package: "com.thanhnd101.enrich.core.entity"
 
   # If the 'spring.mybatis.configLocation' property is used when the 'spring.mybatis.configurationProperties' property is ignored.
