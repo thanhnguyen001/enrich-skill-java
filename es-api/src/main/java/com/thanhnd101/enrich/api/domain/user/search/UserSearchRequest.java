@@ -26,7 +26,6 @@ public class UserSearchRequest {
   private int pageNumber;
   private int pageSize;
   private int totalPage;
-  private int currentPage;
 
   public User convertToUser() {
     return User.builder()
@@ -34,8 +33,6 @@ public class UserSearchRequest {
         .username(this.username)
         .email(this.email)
         .address(this.address)
-        .pageNumber(this.pageNumber)
-        .pageSize(this.pageSize)
         .build();
   }
 }

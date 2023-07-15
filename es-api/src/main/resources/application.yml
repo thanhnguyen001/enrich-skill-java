@@ -4,7 +4,23 @@ spring:
     username: admin
     password: admin
     url: jdbc:mysql://localhost:3306/es-java?createDatabaseIfNotExist=true
-
+  security:
+    oauth2:
+      client:
+        registration:
+          keycloak:
+            client-id: thanhnd101-enrich-java
+            client-secret: mIpff0KFg4cyJ4Oyx4AaoSr0Yx7AGzZI
+            authorization-grant-type: authorization_code
+            scope: openid
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:8082/realms/enrich-java
+            user-name-attribute: preferred_username
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8082/realms/enrich-java
+          jwk-set-uri: http://localhost:8082/realms/enrich-java/protocol/openid-connect/certs
 mybatis:
   # default value
   #    annotationClass: org.springframework.boot.mybatis.autoconfigure.Mapper
@@ -23,3 +39,10 @@ mybatis:
 logging:
   level:
     root: DEBUG
+keycloak:
+  auth-server-url: http://localhost:8082/realms/enrich-java/protocol/openid-connect/auth
+  realm: enrich-java
+  username: thanhnd101
+  password: thanhnd101
+  grant_type: password
+  client-secret: mIpff0KFg4cyJ4Oyx4AaoSr0Yx7AGzZI
