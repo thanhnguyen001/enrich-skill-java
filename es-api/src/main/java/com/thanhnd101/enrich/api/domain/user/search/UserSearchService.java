@@ -28,7 +28,7 @@ public class UserSearchService implements
         rowBounds);
     List<UserSearchResponse> listUserRes = listUser.stream().map(UserSearchResponse::of).toList();
     int count = userRepository.count(userSearchRequest.convertToUser());
-    int totalPage = (int) Math.ceil(count / userSearchRequest.getPageSize());
+    int totalPage = count / userSearchRequest.getPageSize();
     return UserSearchPageResponse.of(listUserRes, userSearchRequest.getPageNumber(),
         userSearchRequest.getPageSize(), totalPage);
   }

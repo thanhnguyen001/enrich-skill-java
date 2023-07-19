@@ -1,6 +1,5 @@
 package com.thanhnd101.enrich.api.domain.user.search;
 
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -19,7 +18,11 @@ public class UserSearchController {
 
   private final UserSearchService userSearchService;
 
+  /**
+   * Api Search User.
+   */
   @GetMapping()
+  @PreAuthorize("hasAuthority('Admin')")
   public ResponseEntity<UserSearchPageResponse> getUsers(
       @RequestParam(defaultValue = "") String id,
       @RequestParam(defaultValue = "") String username,
@@ -39,16 +42,16 @@ public class UserSearchController {
     userSearchRequest.setPageNumber(pageNumber);
 
     if (!id.isEmpty()) {
-      userSearchRequest.setId(String.valueOf(id));
+      userSearchRequest.setId(id);
     }
     if (!username.isEmpty()) {
-      userSearchRequest.setUsername(String.valueOf("%" + username + "%"));
+      userSearchRequest.setUsername("%" + username + "%");
     }
     if (!email.isEmpty()) {
-      userSearchRequest.setEmail(String.valueOf("%" + email + "%"));
+      userSearchRequest.setEmail("%" + email + "%");
     }
     if (!address.isEmpty()) {
-      userSearchRequest.setAddress(String.valueOf("%" + address + "%"));
+      userSearchRequest.setAddress("%" + address + "%");
     }
 
     return ResponseEntity.ok(userSearchService.execute(userSearchRequest));

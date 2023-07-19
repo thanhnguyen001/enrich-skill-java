@@ -8,15 +8,22 @@ spring:
     oauth2:
       client:
         registration:
-          keycloak:
+          auth:
             client-id: thanhnd101-enrich-java
             client-secret: mIpff0KFg4cyJ4Oyx4AaoSr0Yx7AGzZI
             authorization-grant-type: authorization_code
             scope: openid
-        provider:
-          keycloak:
             issuer-uri: http://localhost:8082/realms/enrich-java
             user-name-attribute: preferred_username
+            redirect-uri: http://localhost:8081/login/oauth2/code/enrich-java
+        provider:
+          auth:
+            authorization-grant-type: authorization_code
+            authorization-uri: http://localhost:8082/realms/enrich-java/protocol/openid-connect/auth
+            token-uri: http://localhost:8082/realms/enrich-java/protocol/openid-connect/token
+            user-info-uri: http://localhost:8082/realms/enrich-java/protocol/openid-connect/userinfo
+            user-name-attribute: sub
+            jwk-set-uri: http://localhost:8082/realms/enrich-java/protocol/openid-connect/certs
       resourceserver:
         jwt:
           issuer-uri: http://localhost:8082/realms/enrich-java

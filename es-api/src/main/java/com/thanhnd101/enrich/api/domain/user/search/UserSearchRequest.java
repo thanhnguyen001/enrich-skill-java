@@ -27,6 +27,9 @@ public class UserSearchRequest {
   private int pageSize;
   private int totalPage;
 
+  /**
+   * convertToUser.
+   */
   public User convertToUser() {
     return User.builder()
         .id(this.id)
