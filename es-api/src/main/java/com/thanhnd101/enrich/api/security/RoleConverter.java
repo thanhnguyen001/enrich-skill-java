@@ -4,8 +4,8 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.Map;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
@@ -35,7 +35,7 @@ public class RoleConverter implements Converter<Jwt, AbstractAuthenticationToken
    * prefixes.
    */
   @Override
-  public AbstractAuthenticationToken convert(Jwt jwt) {
+  public AbstractAuthenticationToken convert(@NotNull Jwt jwt) {
     // Collection that will hold the extracted roles
     Collection<GrantedAuthority> grantedAuthorities = extractAuthorities(jwt);
 
@@ -45,7 +45,7 @@ public class RoleConverter implements Converter<Jwt, AbstractAuthenticationToken
   /**
    * extract Authorities.
    */
-  public Collection<GrantedAuthority> extractAuthorities(Jwt jwt) {
+  public Collection<GrantedAuthority> extractAuthorities(@NotNull Jwt jwt) {
     if (jwt.getClaim(CLAIM_REALM_ACCESS) != null) {
       // Realm roles
       // Get the part of the access token that holds the roles assigned on realm level
@@ -53,13 +53,13 @@ public class RoleConverter implements Converter<Jwt, AbstractAuthenticationToken
 
       ObjectMapper mapper = new ObjectMapper();
 
-      List<String> roles = mapper.convertValue(realmAccess.get("roles"),
+      Collection<String> roles = mapper.convertValue(realmAccess.get("roles"),
           new TypeReference<>() {
           });
-      List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
+      Collection<GrantedAuthority> grantedAuthorities = new ArrayList<>();
 
       for (String role : roles) {
-        grantedAuthorities.add(new SimpleGrantedAuthority(role));
+        grantedAuthorities.add(new SimpleGrantedAuthority(PREFIX_RESOURCE_ROLE + role));
       }
     }
     return new ArrayList<>();

@@ -22,7 +22,7 @@ public class UserSearchController {
    * Api Search User.
    */
   @GetMapping()
-  @PreAuthorize("hasAuthority('Admin')")
+  @PreAuthorize("hasRole('Admin')")
   public ResponseEntity<UserSearchPageResponse> getUsers(
       @RequestParam(defaultValue = "") String id,
       @RequestParam(defaultValue = "") String username,
