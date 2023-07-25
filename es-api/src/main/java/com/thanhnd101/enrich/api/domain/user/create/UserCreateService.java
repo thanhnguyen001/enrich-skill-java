@@ -1,9 +1,21 @@
 package com.thanhnd101.enrich.api.domain.user.create;
 
+import com.thanhnd101.enrich.api.security.Credentials;
 import com.thanhnd101.enrich.api.service.CreateService;
 import com.thanhnd101.enrich.core.entity.User;
 import com.thanhnd101.enrich.core.repository.UserRepository;
+import jakarta.ws.rs.core.Response;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.keycloak.admin.client.CreatedResponseUtil;
+import org.keycloak.admin.client.Keycloak;
+import org.keycloak.admin.client.resource.RealmResource;
+import org.keycloak.admin.client.resource.UserResource;
+import org.keycloak.representations.idm.CredentialRepresentation;
+import org.keycloak.representations.idm.RoleRepresentation;
+import org.keycloak.representations.idm.UserRepresentation;
 
 /**
  * user api service.
@@ -14,11 +26,54 @@ public class UserCreateService implements CreateService<UserCreateRequest, UserC
 
   private final UserRepository userRepository;
 
+  private final Keycloak keycloak;
+
   @Override
   public UserCreateResponse execute(UserCreateRequest userCreateRequest) {
+    CredentialRepresentation credential = Credentials
+        .createPasswordCredentials(userCreateRequest.getPassword());
+
+    UserRepresentation userRepresentation = new UserRepresentation();
+    userRepresentation.setUsername(userCreateRequest.getUsername());
+    userRepresentation.setEmail(userCreateRequest.getEmail());
+    userRepresentation.setCredentials(Collections.singletonList(credential));
+    List<String> roles = new ArrayList<>();
+    roles.add("User");
+    userRepresentation.setRealmRoles(roles);
+    userRepresentation.setEnabled(true);
+    RealmResource realmResource = keycloak.realm("enrich-java");
+    Response response = realmResource.users().create(userRepresentation);
+
+    String userId = CreatedResponseUtil.getCreatedId(response);
+    UserResource userResource = realmResource.users().get(userId);
+
+    // Get realm roles (requires view-realm role)
+    RoleRepresentation realmUserRole = realmResource.roles()//
+        .get("User").toRepresentation();
+
+    // Assign realm role tester to user
+    userResource.roles().realmLevel() //
+        .add(Collections.singletonList(realmUserRole));
+
     User user = userCreateRequest.convertToUser();
     UserCreateResponse userResponse = UserCreateResponse.of(user);
-    Long id = userRepository.create(user);
+    userRepository.create(user);
+
+    keycloak.close();
+    // TODO:
+    /* *
+    UserCreateResponse userResponse = new UserCreateResponse();
+    try (Response res = realmResource.users().create(userRepresentation)) {
+      if (res.getStatus() == 200) {
+        User user = userCreateRequest.convertToUser();
+        userResponse = UserCreateResponse.of(user);
+        Long id = userRepository.create(user);
+        keycloak.close();
+        return userResponse;
+
+      }
+    }
+    */
     return userResponse;
   }
 }

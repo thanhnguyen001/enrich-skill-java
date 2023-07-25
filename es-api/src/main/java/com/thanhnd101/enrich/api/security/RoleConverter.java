@@ -61,6 +61,8 @@ public class RoleConverter implements Converter<Jwt, AbstractAuthenticationToken
       for (String role : roles) {
         grantedAuthorities.add(new SimpleGrantedAuthority(PREFIX_RESOURCE_ROLE + role));
       }
+
+      return grantedAuthorities;
     }
     return new ArrayList<>();
   }

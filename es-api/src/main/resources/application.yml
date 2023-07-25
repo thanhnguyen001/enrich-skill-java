@@ -47,9 +47,9 @@ logging:
   level:
     root: DEBUG
 keycloak:
-  auth-server-url: http://localhost:8082/realms/enrich-java/protocol/openid-connect/auth
+  auth-server-url: http://localhost:8082
   realm: enrich-java
   username: thanhnd101
   password: thanhnd101
   grant_type: password
-  client-secret: mIpff0KFg4cyJ4Oyx4AaoSr0Yx7AGzZI
+  use-resource-role-mappings: false
