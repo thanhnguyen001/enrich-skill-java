@@ -29,7 +29,7 @@ public class UserUpdateRequest {
   private LocalDate birthday;
 
   public User convertToUser() {
-    User user = User.builder()
+    return User.builder()
         .id(this.id)
         .username(this.username)
         .email(this.email)
@@ -39,7 +39,5 @@ public class UserUpdateRequest {
         .updatedBy("system")
         .updatedAt(OffsetDateTime.now())
         .build();
-
-    return user;
   }
 }

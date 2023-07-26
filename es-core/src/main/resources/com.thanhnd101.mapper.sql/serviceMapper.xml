@@ -1,0 +1,72 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.thanhnd101.enrich.core.repository.ServiceRepository">
+  <select id="count" resultType="int">
+    SELECT COUNT(id) FROM `es-java`.`user`
+    <where>
+      <if test="id != null">id=#{id}</if>
+      <if test="name != null">AND username like #{username}</if>
+      <if test="status != null">AND email like #{email}</if>
+      <if test="address != null">AND address like #{address}</if>
+    </where>
+  </select>
+
+  <select id="findAll" resultType="com.thanhnd101.enrich.core.entity.User">
+    SELECT * FROM `es-java`.`user`
+    <where>
+      <if test="id != null">id=#{id}</if>
+      <if test="username != null">AND username like #{username}</if>
+      <if test="email != null">AND email like #{email}</if>
+      <if test="address != null">AND address like #{address}</if>
+    </where>
+  </select>
+
+  <insert
+    flushCache="true"
+    id="create"
+    parameterType="com.thanhnd101.enrich.core.entity.User"
+    timeout="20"
+    keyProperty="id"
+    useGeneratedKeys="true">
+    <![CDATA[
+    INSERT INTO `es-java`.`user` (id, username, password, email, address, birthday, created_at, created_by, updated_at, updated_by) VALUES (
+      #{id}
+      ,#{username}
+      ,#{password}
+      ,#{email}
+      ,#{address}
+      ,#{birthday}
+      ,#{createdAt}
+      ,#{createdBy}
+      ,#{updatedAt}
+      ,#{updatedBy}
+    )
+    ]]>
+  </insert>
+
+  <update id="update" parameterType="com.thanhnd101.enrich.core.entity.User">
+    UPDATE `es-java`.`user`
+    <set>
+      <if test="username != null">username=#{username},</if>
+      <if test="password != null">password=#{password},</if>
+      <if test="email != null">email=#{email},</if>
+      <if test="address != null">address=#{address},</if>
+      <if test="birthday != null">address=#{birthday},</if>
+      <if test="updatedAt != null">updated_at=#{updatedAt},</if>
+      <if test="updatedBy != null">updated_by=#{updatedBy},</if>
+    </set>
+    WHERE id = #{id}
+  </update>
+
+  <delete id="delete" parameterType="String">
+    DELETE FROM `es-java`.`user`
+    <where>
+      <foreach item="item" index="index" collection="ids"
+        open="id in (" separator="," close=")" nullable="true">
+        #{item}
+      </foreach>
+    </where>
+  </delete>
+</mapper>
+

@@ -5,9 +5,7 @@ import com.thanhnd101.enrich.api.service.CreateService;
 import com.thanhnd101.enrich.core.entity.User;
 import com.thanhnd101.enrich.core.repository.UserRepository;
 import jakarta.ws.rs.core.Response;
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.keycloak.admin.client.CreatedResponseUtil;
 import org.keycloak.admin.client.Keycloak;
@@ -37,9 +35,7 @@ public class UserCreateService implements CreateService<UserCreateRequest, UserC
     userRepresentation.setUsername(userCreateRequest.getUsername());
     userRepresentation.setEmail(userCreateRequest.getEmail());
     userRepresentation.setCredentials(Collections.singletonList(credential));
-    List<String> roles = new ArrayList<>();
-    roles.add("User");
-    userRepresentation.setRealmRoles(roles);
+
     userRepresentation.setEnabled(true);
     RealmResource realmResource = keycloak.realm("enrich-java");
     Response response = realmResource.users().create(userRepresentation);
@@ -49,7 +45,7 @@ public class UserCreateService implements CreateService<UserCreateRequest, UserC
 
     // Get realm roles (requires view-realm role)
     RoleRepresentation realmUserRole = realmResource.roles()//
-        .get("User").toRepresentation();
+        .get(userCreateRequest.getIsAdmin() ? "Admin" : "User").toRepresentation();
 
     // Assign realm role tester to user
     userResource.roles().realmLevel() //
@@ -60,20 +56,7 @@ public class UserCreateService implements CreateService<UserCreateRequest, UserC
     userRepository.create(user);
 
     keycloak.close();
-    // TODO:
-    /* *
-    UserCreateResponse userResponse = new UserCreateResponse();
-    try (Response res = realmResource.users().create(userRepresentation)) {
-      if (res.getStatus() == 200) {
-        User user = userCreateRequest.convertToUser();
-        userResponse = UserCreateResponse.of(user);
-        Long id = userRepository.create(user);
-        keycloak.close();
-        return userResponse;
 
-      }
-    }
-    */
     return userResponse;
   }
 }

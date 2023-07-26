@@ -16,10 +16,7 @@ public class UserDeleteService implements CreateService<UserDeleteRequest, UserD
   @Override
   public UserDeleteResponse execute(UserDeleteRequest userDeleteRequest) {
     Long i = userRepository.delete(userDeleteRequest.getIds());
-    Boolean ok = false;
-    if (i > 0) {
-      ok = true;
-    }
-    return UserDeleteResponse.builder().successful(ok).build();
+
+    return UserDeleteResponse.builder().successful(i > 0).build();
   }
 }
