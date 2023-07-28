@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ServiceSearchPageResponse {
 
-  private List<ServiceSearchResponse> listUser;
+  private List<ServiceSearchResponse> listService;
   private int pageSize;
   private int currentPage;
   private int totalPage;
@@ -28,7 +28,7 @@ public class ServiceSearchPageResponse {
       int pageSizeRes, int totalPage) {
     totalPage = totalPage <= 0 ? 1 : totalPage;
     return ServiceSearchPageResponse.builder()
-        .listUser(list)
+        .listService(list)
         .currentPage(currentPageRes)
         .pageSize(pageSizeRes)
         .totalPage(totalPage)

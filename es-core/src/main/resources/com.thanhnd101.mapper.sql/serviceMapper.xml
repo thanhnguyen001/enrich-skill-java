@@ -14,9 +14,9 @@
   <select id="findAll" resultType="com.thanhnd101.enrich.core.entity.Service">
     SELECT * FROM `es-java`.`service`
     <where>
-      <if test="id != null">id=#{id}</if>
+      <if test="id > 0">id=#{id}</if>
       <if test="name != null">AND name like #{name}</if>
-      <if test="status != null">AND status = #{status}</if>
+      <if test="status > 0">AND status = #{status}</if>
     </where>
   </select>
 
@@ -42,8 +42,8 @@
   <update id="update" parameterType="com.thanhnd101.enrich.core.entity.Service">
     UPDATE `es-java`.`service`
     <set>
-      <if test="name != null">name like #{name}</if>
-      <if test="status != null">AND status = #{status}</if>
+      <if test="name != null">name = #{name},</if>
+      <if test="status != null">status = #{status},</if>
       <if test="updatedAt != null">updated_at=#{updatedAt},</if>
       <if test="updatedBy != null">updated_by=#{updatedBy},</if>
     </set>

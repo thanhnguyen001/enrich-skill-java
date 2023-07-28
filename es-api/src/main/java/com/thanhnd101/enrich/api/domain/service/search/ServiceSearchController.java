@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/users")
+@RequestMapping("/api/services")
 public class ServiceSearchController {
 
   private final ServiceSearchService serviceSearchService;
@@ -23,28 +23,22 @@ public class ServiceSearchController {
    */
   @GetMapping()
   @PreAuthorize("hasRole('Admin')")
-  public ResponseEntity<ServiceSearchPageResponse> getUsers(
-      @RequestParam(defaultValue = "") Long id,
+  public ResponseEntity<ServiceSearchPageResponse> getServices(
+      @RequestParam(defaultValue = "0") Long id,
       @RequestParam(defaultValue = "") String name,
-      @RequestParam(defaultValue = "") int status,
+      @RequestParam(defaultValue = "0") int status,
       @RequestParam(defaultValue = "3") int pageSize,
       @RequestParam(defaultValue = "0") int pageNumber
   ) {
     ServiceSearchRequest serviceSearchRequest = new ServiceSearchRequest();
     // Set null to run condition <where> mybatis SQL in xml file
-    serviceSearchRequest.setId(null);
-    serviceSearchRequest.setName(null);
     serviceSearchRequest.setPageSize(pageSize);
     serviceSearchRequest.setPageNumber(pageNumber);
-
+    serviceSearchRequest.setId(id);
+    serviceSearchRequest.setStatus(status);
+    serviceSearchRequest.setName(null);
     if (!name.isEmpty()) {
       serviceSearchRequest.setName("%" + name + "%");
-    }
-    if (id > 0) {
-      serviceSearchRequest.setId(id);
-    }
-    if (status > 0) {
-      serviceSearchRequest.setStatus(status);
     }
     return ResponseEntity.ok(serviceSearchService.execute(serviceSearchRequest));
   }

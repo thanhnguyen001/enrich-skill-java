@@ -46,10 +46,10 @@ public class ServiceCreateResponse {
         .id(service.getId())
         .name(service.getName())
         .status(service.getStatus())
-        .createdAt(service.getCreatedAt())
-        .createdBy(service.getCreatedBy())
-        .updatedAt(service.getUpdatedAt())
-        .updatedBy(service.getUpdatedBy())
+        .createdAt(OffsetDateTime.now())
+        .createdBy("system")
+        .updatedAt(OffsetDateTime.now())
+        .updatedBy("system")
         .build();
   }
 }

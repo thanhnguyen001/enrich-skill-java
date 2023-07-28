@@ -19,7 +19,7 @@ public class ServiceDeleteController {
   private final ServiceDeleteService serviceDeleteService;
 
   @DeleteMapping
-  @PreAuthorize("hasRole('client_admin')")
+  @PreAuthorize("hasRole('Admin')")
   public ResponseEntity<ServiceDeleteResponse> delete(
       @RequestBody ServiceDeleteRequest serviceDeleteRequest) {
     return ResponseEntity.ok(serviceDeleteService.execute(serviceDeleteRequest));

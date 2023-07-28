@@ -12,7 +12,7 @@ import org.apache.ibatis.session.RowBounds;
 @Mapper
 public interface ServiceRepository {
 
-  List<Service> findAll(@Param("id") String id, @Param("name") String name, RowBounds rowBounds);
+  List<Service> findAll(@Param("id") Long id, @Param("name") String name, @Param("status") int status, RowBounds rowBounds);
 
   int count(Service service);
 

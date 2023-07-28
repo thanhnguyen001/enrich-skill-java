@@ -14,10 +14,8 @@ public class ServiceUpdateService implements CreateService<ServiceUpdateRequest,
 
   private final ServiceRepository serviceRepository;
 
-
   @Override
   public ServiceUpdateResponse execute(ServiceUpdateRequest serviceUpdateRequest) {
-
     Service service = serviceUpdateRequest.convertToService();
     ServiceUpdateResponse serviceUpdateResponse = ServiceUpdateResponse.of(service);
     serviceRepository.update(service);

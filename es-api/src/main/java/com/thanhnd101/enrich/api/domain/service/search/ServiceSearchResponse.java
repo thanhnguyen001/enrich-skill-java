@@ -1,8 +1,7 @@
 package com.thanhnd101.enrich.api.domain.service.search;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.thanhnd101.enrich.core.entity.User;
-import java.time.LocalDate;
+import com.thanhnd101.enrich.core.entity.Service;
 import java.time.OffsetDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,12 +18,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ServiceSearchResponse {
 
-  private String id;
-  private String username;
-  private String password;
-  private LocalDate birthday;
-  private String email;
-  private String address;
+  private Long id;
+  private String name;
+  private int status;
 
   @JsonFormat(
       shape = JsonFormat.Shape.STRING,
@@ -42,30 +38,18 @@ public class ServiceSearchResponse {
 
   private String updatedBy;
 
-  @JsonFormat(
-      shape = JsonFormat.Shape.STRING,
-      pattern = "yyyy-MM-dd'T'HH:mm:ss[.SSS]XXX",
-      timezone = "UTC")
-  private OffsetDateTime deletedAt;
-
-  private String deletedBy;
-
   /**
    * user api response.
    */
-  public static ServiceSearchResponse of(User user) {
+  public static ServiceSearchResponse of(Service service) {
     return ServiceSearchResponse.builder()
-        .id(user.getId())
-        .username(user.getUsername())
-        .password(user.getPassword())
-        .address(user.getAddress())
-        .birthday(user.getBirthday())
-        .email(user.getEmail())
-        .createdBy(user.getCreatedBy())
-        .updatedAt(user.getUpdatedAt())
-        .updatedBy(user.getUpdatedBy())
-        .deletedAt(user.getDeletedAt())
-        .deletedBy(user.getDeletedBy())
+        .id(service.getId())
+        .name(service.getName())
+        .status(service.getStatus())
+        .createdAt(service.getCreatedAt())
+        .createdBy(service.getCreatedBy())
+        .updatedAt(service.getUpdatedAt())
+        .updatedBy(service.getUpdatedBy())
         .build();
   }
 }

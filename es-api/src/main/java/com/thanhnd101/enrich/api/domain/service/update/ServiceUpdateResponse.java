@@ -26,14 +26,6 @@ public class ServiceUpdateResponse {
       shape = JsonFormat.Shape.STRING,
       pattern = "yyyy-MM-dd'T'HH:mm:ss[.SSS]XXX",
       timezone = "UTC")
-  private OffsetDateTime createdAt;
-
-  private String createdBy;
-
-  @JsonFormat(
-      shape = JsonFormat.Shape.STRING,
-      pattern = "yyyy-MM-dd'T'HH:mm:ss[.SSS]XXX",
-      timezone = "UTC")
   private OffsetDateTime updatedAt;
 
   private String updatedBy;
@@ -46,10 +38,8 @@ public class ServiceUpdateResponse {
         .id(service.getId())
         .name(service.getName())
         .status(service.getStatus())
-        .createdAt(service.getCreatedAt())
-        .createdBy(service.getCreatedBy())
-        .updatedAt(service.getUpdatedAt())
-        .updatedBy(service.getUpdatedBy())
+        .updatedAt(OffsetDateTime.now())
+        .updatedBy("system")
         .build();
   }
 }
