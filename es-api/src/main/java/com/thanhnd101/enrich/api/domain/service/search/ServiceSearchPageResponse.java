@@ -1,4 +1,4 @@
-package com.thanhnd101.enrich.api.domain.user.search;
+package com.thanhnd101.enrich.api.domain.service.search;
 
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -14,9 +14,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserSearchPageResponse {
+public class ServiceSearchPageResponse {
 
-  private List<UserSearchResponse> listUser;
+  private List<ServiceSearchResponse> listUser;
   private int pageSize;
   private int currentPage;
   private int totalPage;
@@ -24,10 +24,10 @@ public class UserSearchPageResponse {
   /**
    * ServiceSearchPageResponse.
    */
-  public static UserSearchPageResponse of(List<UserSearchResponse> list, int currentPageRes,
+  public static ServiceSearchPageResponse of(List<ServiceSearchResponse> list, int currentPageRes,
       int pageSizeRes, int totalPage) {
     totalPage = totalPage <= 0 ? 1 : totalPage;
-    return UserSearchPageResponse.builder()
+    return ServiceSearchPageResponse.builder()
         .listUser(list)
         .currentPage(currentPageRes)
         .pageSize(pageSizeRes)

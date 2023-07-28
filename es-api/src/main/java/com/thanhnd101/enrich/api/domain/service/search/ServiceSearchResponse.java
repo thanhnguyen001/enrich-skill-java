@@ -1,4 +1,4 @@
-package com.thanhnd101.enrich.api.domain.user.create;
+package com.thanhnd101.enrich.api.domain.service.search;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.thanhnd101.enrich.core.entity.User;
@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserCreateResponse {
+public class ServiceSearchResponse {
 
   private String id;
   private String username;
@@ -53,14 +53,14 @@ public class UserCreateResponse {
   /**
    * user api response.
    */
-  public static UserCreateResponse of(User user) {
-    return UserCreateResponse.builder()
+  public static ServiceSearchResponse of(User user) {
+    return ServiceSearchResponse.builder()
         .id(user.getId())
         .username(user.getUsername())
+        .password(user.getPassword())
         .address(user.getAddress())
         .birthday(user.getBirthday())
         .email(user.getEmail())
-        .createdAt(user.getCreatedAt())
         .createdBy(user.getCreatedBy())
         .updatedAt(user.getUpdatedAt())
         .updatedBy(user.getUpdatedBy())

@@ -44,18 +44,20 @@ public class UserCreateService implements CreateService<UserCreateRequest, UserC
     UserResource userResource = realmResource.users().get(userId);
 
     // Get realm roles (requires view-realm role)
+    String role = Boolean.TRUE.equals(userCreateRequest.getIsAdmin()) ? "Admin" : "User";
     RoleRepresentation realmUserRole = realmResource.roles()//
-        .get(userCreateRequest.getIsAdmin() ? "Admin" : "User").toRepresentation();
+        .get(role).toRepresentation();
 
     // Assign realm role tester to user
     userResource.roles().realmLevel() //
         .add(Collections.singletonList(realmUserRole));
 
+    keycloak.close();
+
+    // Add User to DB
     User user = userCreateRequest.convertToUser();
     UserCreateResponse userResponse = UserCreateResponse.of(user);
     userRepository.create(user);
-
-    keycloak.close();
 
     return userResponse;
   }

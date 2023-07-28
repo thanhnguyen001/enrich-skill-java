@@ -12,8 +12,8 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 /**
  * Security Config.
@@ -24,11 +24,14 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-  /**
-   * Handler login success.
+   /**
+   * WebSecurityCustomizer.
    */
-  public AuthenticationSuccessHandler keycloakSuccessHandler() {
-    return new KeycloakSuccessHandler();
+  @Bean
+  public WebSecurityCustomizer webSecurityCustomizer() {
+    return (web) -> web.ignoring().requestMatchers(
+        "/api/users/login"
+    );
   }
 
   /**
@@ -40,14 +43,11 @@ public class SecurityConfig {
         auth -> auth
             .requestMatchers(HttpMethod.GET, "/api/**")
             .authenticated()
-            .requestMatchers(HttpMethod.POST, "/api/users/login")
-            .permitAll()
             .requestMatchers("/api/**")
             .authenticated()
             .anyRequest()
             .permitAll()
-    )
-        .formLogin(form -> form.successHandler(keycloakSuccessHandler()));
+    );
     // http.cors().disable().
     http.oauth2Login(Customizer.withDefaults());
     http.oauth2ResourceServer(oauth2 -> oauth2

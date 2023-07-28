@@ -20,6 +20,6 @@ public interface ServiceRepository {
 
   Long update(Service service);
 
-  Long delete(@Param("ids") List<String> ids);
+  Long delete(@Param("ids") List<Long> ids);
 
 }
