@@ -22,7 +22,7 @@ public class UserSearchPageResponse {
   private int totalPage;
 
   /**
-   * ServiceSearchPageResponse.
+   * UserServiceSearchPageResponse.
    */
   public static UserSearchPageResponse of(List<UserSearchResponse> list, int currentPageRes,
       int pageSizeRes, int totalPage) {

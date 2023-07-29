@@ -1,6 +1,5 @@
 package com.thanhnd101.enrich.core.entity;
 
-import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,19 +17,13 @@ import lombok.ToString;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
-
-  private String id;
-  private String username;
-  private String password;
-  private LocalDate birthday;
-  private String email;
-  private String address;
+public class UserService {
+  private Long id;
+  private String userid;
+  private Long serviceid;
+  private int status;
   private OffsetDateTime createdAt;
   private String createdBy;
   private OffsetDateTime updatedAt;
   private String updatedBy;
-  private OffsetDateTime deletedAt;
-  private String deletedBy;
 }
-
