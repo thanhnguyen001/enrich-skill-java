@@ -60,6 +60,7 @@ public class UserCreateResponse {
         .address(user.getAddress())
         .birthday(user.getBirthday())
         .email(user.getEmail())
+        .createdAt(user.getCreatedAt())
         .createdBy(user.getCreatedBy())
         .updatedAt(user.getUpdatedAt())
         .updatedBy(user.getUpdatedBy())

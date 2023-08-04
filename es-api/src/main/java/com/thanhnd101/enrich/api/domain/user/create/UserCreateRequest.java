@@ -25,15 +25,18 @@ public class UserCreateRequest {
   private String password;
   private String email;
   private String address;
+  private Boolean isAdmin;
 
+  /**
+   * convertToUser.
+   */
   public User convertToUser() {
     String id = this.username;
     OffsetDateTime createdAt = OffsetDateTime.now();
     OffsetDateTime updatedAt = OffsetDateTime.now();
 
-    User user = User.builder().id(id).username(this.username).email(this.email).password(this.password)
-        .address(this.address).birthday(LocalDate.now()).createdBy("system").createdAt(createdAt).updatedBy("system").updatedAt(updatedAt).build();
-
-    return user;
+    return User.builder().id(id).username(this.username).email(this.email).password(this.password)
+        .address(this.address).birthday(LocalDate.now()).createdBy("system").createdAt(createdAt)
+        .updatedBy("system").updatedAt(updatedAt).build();
   }
 }

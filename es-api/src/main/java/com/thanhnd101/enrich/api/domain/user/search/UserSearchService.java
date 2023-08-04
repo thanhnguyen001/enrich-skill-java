@@ -19,14 +19,17 @@ public class UserSearchService implements
 
   @Override
   public UserSearchPageResponse execute(UserSearchRequest userSearchRequest) {
-    int pageNumber = userSearchRequest.getPageNumber() < 1 ? 1 : userSearchRequest.getPageNumber();
+    int pageNumber = userSearchRequest.getPageNumber();
     int pageSize = userSearchRequest.getPageSize();
-    RowBounds rowBounds = new RowBounds((pageNumber - 1) * pageSize, pageSize);
-    List<User> listUser = userRepository.findAll(userSearchRequest.convertToUser(), rowBounds);
+    RowBounds rowBounds = new RowBounds(pageNumber * pageSize, pageSize);
+    User userSearchParams = userSearchRequest.convertToUser();
+    List<User> listUser = userRepository.findAll(userSearchParams.getId(),
+        userSearchParams.getUsername(), userSearchParams.getEmail(), userSearchParams.getAddress(),
+        rowBounds);
     List<UserSearchResponse> listUserRes = listUser.stream().map(UserSearchResponse::of).toList();
     int count = userRepository.count(userSearchRequest.convertToUser());
-    int totalPage = (int)Math.ceil(count / userSearchRequest.getPageSize());
-    return UserSearchPageResponse.of(listUserRes, userSearchRequest.getCurrentPage(),
+    int totalPage = count / userSearchRequest.getPageSize();
+    return UserSearchPageResponse.of(listUserRes, userSearchRequest.getPageNumber(),
         userSearchRequest.getPageSize(), totalPage);
   }
 }

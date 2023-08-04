@@ -1,0 +1,77 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.thanhnd101.enrich.core.repository.UserServiceRepository">
+  <select id="count" resultType="int">
+    SELECT COUNT(id) FROM `es-java`.`userservice`
+    <where>
+      <if test="serviceid > 0">serviceid=#{serviceid}</if>
+      <if test="userid != null">AND userid like #{userid}</if>
+      <if test="status > 0">AND status = #{status}</if>
+    </where>
+  </select>
+
+  <select id="findAll" resultType="com.thanhnd101.enrich.core.entity.UserService">
+    SELECT * FROM `es-java`.`userservice`
+    <where>
+      <if test="serviceid > 0">serviceid=#{serviceid}</if>
+      <if test="userid != null">AND userid like #{userid}</if>
+      <if test="status > 0">AND status = #{status}</if>
+    </where>
+  </select>
+
+  <insert
+    flushCache="true"
+    id="create"
+    parameterType="com.thanhnd101.enrich.core.entity.UserService"
+    timeout="20"
+    keyProperty="id"
+    useGeneratedKeys="true">
+    <![CDATA[
+    INSERT INTO `es-java`.`userservice` (userid, serviceid, status, created_at, created_by, updated_at, updated_by) VALUES (
+      #{userid}
+      ,#{serviceid}
+      ,#{status}
+      ,#{createdAt}
+      ,#{createdBy}
+      ,#{updatedAt}
+      ,#{updatedBy}
+    )
+    ]]>
+  </insert>
+
+  <update id="update" parameterType="com.thanhnd101.enrich.core.entity.UserService">
+    UPDATE `es-java`.`userservice`
+    <set>
+      <if test="status != null">status = #{status},</if>
+      <if test="updatedAt != null">updated_at=#{updatedAt},</if>
+      <if test="updatedBy != null">updated_by=#{updatedBy},</if>
+    </set>
+    WHERE userid = #{userid} and serviceid = #{serviceid}
+  </update>
+
+  <delete id="delete" parameterType="com.thanhnd101.enrich.core.entity.UserService">
+    DELETE FROM `es-java`.`userservice`
+    WHERE userid = #{userid} and serviceid = #{serviceid}
+  </delete>
+
+   <delete id="deleteByUser" parameterType="String">
+    DELETE FROM `es-java`.`userservice`
+    <where>
+      <foreach item="item" index="index" collection="ids"
+        open="userid in (" separator="," close=")" nullable="true">
+        #{item}
+      </foreach>
+    </where>
+  </delete>
+
+   <delete id="deleteByService" parameterType="Long">
+    DELETE FROM `es-java`.`userservice`
+    <where>
+      <foreach item="item" index="index" collection="ids"
+        open="serviceid in (" separator="," close=")" nullable="true">
+        #{item}
+      </foreach>
+    </where>
+  </delete>
+</mapper>

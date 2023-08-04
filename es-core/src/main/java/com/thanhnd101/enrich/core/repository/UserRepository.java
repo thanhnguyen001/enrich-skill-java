@@ -12,9 +12,14 @@ import org.apache.ibatis.session.RowBounds;
 @Mapper
 public interface UserRepository {
 
-  List<User> findAll(User user, RowBounds rowBounds);
+  List<User> findAll(@Param("id") String id
+      , @Param("username") String username
+      , @Param("email") String email
+      , @Param("address") String address
+      , RowBounds rowBounds);
 
   int count(User user);
+
   Long create(User user);
 
   Long update(User user);

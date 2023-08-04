@@ -26,16 +26,16 @@ public class UserSearchRequest {
   private int pageNumber;
   private int pageSize;
   private int totalPage;
-  private int currentPage;
 
+  /**
+   * convertToUser.
+   */
   public User convertToUser() {
     return User.builder()
         .id(this.id)
         .username(this.username)
         .email(this.email)
         .address(this.address)
-        .pageNumber(this.pageNumber)
-        .pageSize(this.pageSize)
         .build();
   }
 }

@@ -18,7 +18,9 @@ public class UserCreateController {
   private final UserCreateService userCreateService;
 
   @PostMapping
-  public ResponseEntity<UserCreateResponse> create(@RequestBody UserCreateRequest userCreateRequest) {
+  public ResponseEntity<UserCreateResponse> create(
+      @RequestBody UserCreateRequest userCreateRequest) {
     return ResponseEntity.ok(userCreateService.execute(userCreateRequest));
   }
+
 }

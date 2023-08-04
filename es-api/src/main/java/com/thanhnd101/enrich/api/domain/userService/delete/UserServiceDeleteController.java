@@ -1,4 +1,4 @@
-package com.thanhnd101.enrich.api.domain.user.delete;
+package com.thanhnd101.enrich.api.domain.userService.delete;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -13,15 +13,15 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/users")
-public class UserDeleteController {
+@RequestMapping("/api/user-service")
+public class UserServiceDeleteController {
 
-  private final UserDeleteService userDeleteService;
+  private final UserServiceDeleteService userServiceDeleteService;
 
   @DeleteMapping
-  @PreAuthorize("hasRole('client_admin')")
-  public ResponseEntity<UserDeleteResponse> delete(
-      @RequestBody UserDeleteRequest userDeleteRequest) {
-    return ResponseEntity.ok(userDeleteService.execute(userDeleteRequest));
+  @PreAuthorize("hasRole('Admin')")
+  public ResponseEntity<UserServiceDeleteResponse> delete(
+      @RequestBody UserServiceDeleteRequest userServiceDeleteRequest) {
+    return ResponseEntity.ok(userServiceDeleteService.execute(userServiceDeleteRequest));
   }
 }
